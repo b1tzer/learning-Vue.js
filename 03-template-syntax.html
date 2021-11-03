@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/vue-dev.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <span>Message: {{ msg }}</span>
+        <p>Using mustaches: {{ rawHtml }}</p>
+        <p>Using v-html directive: <span v-html="rawHtml"><</span></p>
+        <button v-bind:disabled="isButtonDisabled">Button</button>
+        <p>{{ number + 1 }}</p>
+        <p>{{ number > 1 ? true : false }}</p>
+        <p>{{ msg.split("").reverse().join("") }}</p>
+    </div>
+
+    <div id="foot">
+        <p><a :[act]="beforeUrl">Click to Before Part!</a></p>
+        <p><a :href="afterUrl">Click to Next Part!</a></p>
+    </div>
+
+</body>
+<script>
+    var app =new Vue({
+        el: '#app',
+        data: {
+            msg: 'This is a msg!',
+            rawHtml: '<span style="color: red">This should be red.</span>',
+            isButtonDisabled: 'Disabled',
+            number: 1
+        }
+    })
+
+    var foot = new Vue({
+        el: '#foot',
+        data: {
+            act: 'href',
+            beforeUrl: '/02-vue-instance.html',
+            afterUrl: '/04-ComputeProp-Watcher.html',
+        }
+    })
+
+
+</script>
+</html>

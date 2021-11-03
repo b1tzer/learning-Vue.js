@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/vue-dev.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        {{ a }} <br>
+        {{ b }} <br>
+        {{ c }} <br>
+        {{ d }} <br>
+        {{ e }} 
+    </div>
+
+    <div id="app-1">
+        <p>app.$data === data : {{ testdata }}</p>
+        <p>app.$el === document.getElementById('app') : {{ testel }}</p>
+    </div>
+
+    <div id="foot">
+        <p><a v-bind:[act]="beforeUrl">Click to Before Part!</a></p>
+        <p><a v-bind:href="afterUrl">Click to Next Part!</a></p>
+    </div>
+    
+</body>
+
+<script>
+
+    var data = {
+        a: 'hello',
+        b: 1,
+        c : true,
+        d: ['1','2'],
+        e: null
+    }
+    // 视图不再动态响应数据的变化
+    //Object.freeze(data)
+
+    var app = new Vue({
+        el: '#app',
+        data: data
+    })
+
+    // 此时修改值视图不响应 
+    //data.a = 'Vue'
+
+
+    var app1 = new Vue({
+        el: '#app-1',
+        data: {
+            testdata: app.$data === data,
+            testel: app.$el === document.getElementById('app')
+        }
+    })
+
+    // 在变量发生变化时触发回调函数
+    app.$watch('a', function (newValue, oldValue) {
+        console.log(oldValue + ' --> ' + newValue)
+    })
+
+    // 测试回调函数
+    data.a = 'Vue'
+
+    new Vue({
+        data: data,
+        created: function () {
+            console.log('a is: ' + this.a)
+        }
+    })
+
+
+    var foot = new Vue({
+        el: '#foot',
+        data: {
+            act: 'href',
+            beforeUrl: '/01-introduction.html',
+            afterUrl: '/03-template-syntax.html',
+        }
+    })
+
+</script>
+
+</html>
