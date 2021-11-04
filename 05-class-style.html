@@ -4,19 +4,116 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <script src="/js/vue-dev.js"></script>
     <title>Document</title>
 </head>
 <body>
 
+    <div class="static" :class="{ active: isActive, 'text-danger': hasError }">
+        <p>hello</p>
+    </div>
 
+    <div id="app1" :class="classObject">
+        <p>app1</p>
+    </div>
 
+    <div id="app2" :class="classObject">
+        <p>app2</p>
+    </div>
 
+    <div id="app3" :class="[activeClass, errorClass]">
+        <p>app3</p>
+    </div>
+
+    <div id="app4" :style="{ color: activeColor, fontSize: fontSize + 'px' }">
+        <p>app4</p>
+    </div>
+
+    <div id="app5" :style="styleObject">
+        <p>app5</p>
+    </div>
+
+    <div id="foot">
+        <p><a :[act]="beforeUrl">Click to Before Part!</a></p>
+        <p><a :href="afterUrl">Click to Next Part!</a></p>
+    </div>
     
 </body>
 <script>
 
+    var vm = new Vue({
+        el: '.static',
+        data: {
+            isActive: true,
+            hasError: true
+        }
+    })
 
+    var vm1 = new Vue({
+        el: '#app1',
+        data: {
+            classObject: {
+                active: true,
+                'text-danger': true
+            }
+        }
+    })
+
+    var vm2 = new Vue({
+        el: '#app2',
+        data: {
+            error: true,
+            isActive: true
+        },
+        computed: {
+            classObject: function() {
+                return {
+                    active: this.isActive && !this.error,
+                    'text-danger': this.error && this.error.type === 'fatal'
+                }
+            }
+        }
+    })
+
+    var vm3 = new Vue({
+        el: '#app3',
+        data: {
+            activeClass: 'active',
+            errorClass: 'text-danger'
+        }
+    })
+
+    var vm4 = new Vue({
+        el: '#app4',
+        data: {
+            activeColor: 'red',
+            fontSize: '30',
+            styleObject: {
+                color: 'red',
+                fontSize: '12px'
+            }
+        }
+    })
+
+    var vm5 = new Vue({
+        el: '#app5',
+        data: {
+            styleObject: {
+                color: 'red',
+                fontSize: '12px'
+            }
+        }
+    })
+
+    var foot = new Vue({
+        el: '#foot',
+        data: {
+            act: 'href',
+            beforeUrl: '/04-computeprop-watcher.html',
+            afterUrl: '/06-conditional-rendering.html',
+        }
+    })
 
 </script>
 

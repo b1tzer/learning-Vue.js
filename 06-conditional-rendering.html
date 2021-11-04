@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/vue-dev.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app1">
+        <h1 v-if="awesome">Vue is awesome!😃</h1>
+        <h1 v-else>Oh no 😢</h1>
+
+        <template v-if="ok">
+            <h1>Title</h1>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+        </template>
+          
+        <div v-if="Math.random() > 0.5">Now you see me</div>
+        <div v-else>Now you don't</div>
+
+        <p>
+            <div v-if="type === 'A'">A</div>
+            <div v-else-if="type === 'B'">B</div>
+            <div v-else-if="type === 'C'">C</div>
+            <div v-else>Not A/B/C</div>
+        </p>
+        
+
+        <template v-if="loginType === 'username'">
+            <label>Username</label>
+            <input placeholder="Enter your username">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email address">
+        </template>
+        <button @click="toggleLoginType">Toggle login type</button>
+        <p></p>
+
+        <template v-if="loginType === 'username'">
+            <label>Username</label>
+            <input placeholder="Enter your username" key="username-input">
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input placeholder="Enter your email address" key="email-input">
+        </template>
+
+        <h1 v-show="show">Hello!</h1>
+
+    </div>
+
+
+   
+
+    <div id="foot">
+        <p><a :[act]="beforeUrl">Click to Before Part!</a></p>
+        <p><a :href="afterUrl">Click to Next Part!</a></p>
+    </div>
+</body>
+<script>
+
+    vm1 = new Vue({
+        el: '#app1',
+        data: {
+            awesome: true,
+            ok: true,
+            type: 'D',
+            loginType: 'username',
+            show: false
+        },
+        methods: {
+            toggleLoginType: function () {
+            return this.loginType = this.loginType === 'username' ? 'email' : 'username'
+            }
+        }
+    })
+
+
+
+
+
+
+
+
+    var foot = new Vue({
+        el: '#foot',
+        data: {
+            act: 'href',
+            beforeUrl: '/05-class-style.html',
+            afterUrl: '/06-conditional-rendering.html',
+        }
+    })
+</script>
+</html>
